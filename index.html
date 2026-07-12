@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Posimind × Jarvis Daily — Growth Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#002070; --navy-800:#071f4d; --navy-900:#05163a; --blue:#005792;
+  --gold:#fcb44b; --gold-300:#ffd98a; --gold-600:#e0902a; --red:#e13a44;
+  --paper:#f4eee1; --paper-2:#efe6d3; --ink:#0d1f42; --mut:#5a6b8c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--navy-900);color:#fff;font-family:'Archivo',sans-serif;overflow-x:hidden;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+h1,h2,h3,.fr{font-family:'Fraunces',serif}
+.eyebrow{font-family:'Space Mono',monospace;font-size:14px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:34px;height:2px;background:var(--gold)}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(10px);
+  background:rgba(5,22,58,.72);border-bottom:1px solid rgba(255,255,255,.08)}
+nav .row{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.14em;font-size:15px}
+.brand svg{width:30px;height:30px}
+.brand .by{font-family:'Space Mono';font-weight:400;font-size:11px;letter-spacing:.1em;color:var(--mut);border-left:1px solid rgba(255,255,255,.2);padding-left:12px}
+.navcta{background:var(--gold);color:var(--navy-900);font-weight:800;font-size:14px;padding:11px 20px;border-radius:100px;text-decoration:none;letter-spacing:.02em;transition:transform .15s}
+.navcta:active{transform:scale(.96)}
+
+/* hero */
+.hero{position:relative;padding:190px 0 90px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;
+  background:radial-gradient(80% 60% at 15% 0%,#0c3072 0%,transparent 60%),radial-gradient(70% 50% at 100% 30%,rgba(252,180,75,.14),transparent 65%)}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:76px;line-height:.98;font-weight:500;letter-spacing:-.02em;margin:22px 0}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p.lede{font-size:21px;color:#c9d4e8;max-width:34ch}
+.hero .meta{margin-top:26px;display:flex;gap:26px;font-family:'Space Mono';font-size:13px;color:var(--mut)}
+.hero .meta b{color:#fff;display:block;font-family:'Archivo';font-size:26px;font-weight:800}
+/* phone */
+.phone{justify-self:center;width:300px;aspect-ratio:9/16;border-radius:38px;border:8px solid #0c1a3a;
+  box-shadow:0 40px 90px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.06);overflow:hidden;position:relative;background:#000}
+.phone video{width:100%;height:100%;object-fit:cover;display:block}
+.phone .sound{position:absolute;right:12px;bottom:12px;z-index:3;background:rgba(5,22,58,.7);border:1px solid rgba(255,255,255,.25);
+  color:#fff;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px)}
+.phone .tag{position:absolute;left:12px;top:12px;z-index:3;background:var(--gold);color:var(--navy-900);font-weight:800;font-size:11px;
+  letter-spacing:.1em;padding:6px 12px;border-radius:100px}
+
+section{position:relative}
+.band{padding:96px 0}
+.band.paper{background:var(--paper);color:var(--ink)}
+.band.paper .eyebrow{color:var(--blue)}.band.paper .eyebrow::before{background:var(--blue)}
+h2.big{font-size:54px;font-weight:500;line-height:1.02;letter-spacing:-.015em;margin:16px 0 8px}
+.sub{font-size:19px;color:var(--mut);max-width:56ch}
+.band.paper .sub{color:#41527a}
+
+/* flywheel */
+.fly{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:48px}
+.fly .stage{position:relative;aspect-ratio:1;max-width:520px;margin:0 auto;width:100%}
+.node{position:absolute;border-radius:16px;padding:14px 18px;font-weight:700;font-size:15px;
+  background:#fff;color:var(--navy);box-shadow:0 10px 24px rgba(0,0,0,.12);display:flex;align-items:center;gap:10px;
+  opacity:0;transform:scale(.8);transition:opacity .5s,transform .5s}
+.node.in{opacity:1;transform:none}
+.node .dot{width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.node.core{background:var(--navy);color:#fff;font-family:'Fraunces';font-size:19px;font-weight:600;padding:22px 26px;
+  left:50%;top:50%;transform:translate(-50%,-50%) scale(.8);box-shadow:0 16px 40px rgba(0,32,112,.4);z-index:3}
+.node.core.in{transform:translate(-50%,-50%)}
+.node.n1{top:2%;left:32%}.node.n2{top:24%;right:0}.node.n3{bottom:24%;right:2%}
+.node.n4{bottom:2%;left:34%}.node.n5{bottom:24%;left:0}.node.n6{top:24%;left:0}
+.fly svg.links{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible}
+.fly svg.links path{stroke:var(--gold);stroke-width:2;fill:none;stroke-dasharray:6 7;opacity:.5;
+  stroke-dashoffset:200;transition:stroke-dashoffset 1.2s ease}
+.fly.in svg.links path{stroke-dashoffset:0}
+.flylist li{list-style:none;padding:16px 0;border-bottom:1px solid rgba(0,0,0,.1);display:flex;gap:16px;align-items:flex-start}
+.flylist .k{font-family:'Space Mono';color:var(--gold-600);font-weight:700;font-size:14px;min-width:26px}
+.flylist b{font-size:18px}.flylist span{color:#41527a;font-size:15px}
+
+/* voice */
+.voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px}
+.vcard{background:linear-gradient(160deg,var(--navy-800),var(--navy-900));border:1px solid rgba(252,180,75,.25);
+  border-radius:22px;padding:30px;display:flex;flex-direction:column;gap:18px}
+.vcard .lang{font-family:'Space Mono';letter-spacing:.2em;font-size:13px;color:var(--gold)}
+.vcard .play{display:flex;align-items:center;gap:16px;cursor:pointer}
+.vcard .pbtn{width:58px;height:58px;border-radius:50%;background:var(--gold);color:var(--navy-900);display:grid;place-items:center;flex:0 0 58px;transition:transform .15s}
+.vcard .pbtn:active{transform:scale(.93)}
+.wave{flex:1;height:46px;display:flex;align-items:center;gap:3px}
+.wave i{flex:1;background:rgba(255,255,255,.3);border-radius:2px;height:22%}
+.wave.playing i{animation:eq .8s ease-in-out infinite}
+.wave i:nth-child(3n){animation-delay:.1s}.wave i:nth-child(3n+1){animation-delay:.25s}.wave i:nth-child(4n){animation-delay:.4s}
+@keyframes eq{0%,100%{height:18%}50%{height:90%;background:var(--gold-300)}}
+.vcard .cap{font-size:14px;color:#9fb0d0}
+
+/* reel big */
+.reelbig{display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:center;margin-top:44px}
+.reelbig .frame{aspect-ratio:9/16;border-radius:26px;overflow:hidden;border:6px solid #0c1a3a;box-shadow:0 30px 70px rgba(0,0,0,.4);background:#000;position:relative}
+.reelbig video{width:100%;height:100%;object-fit:cover}
+.reelbig .rc{width:44px;height:44px;border-radius:50%;position:absolute;right:12px;bottom:12px;background:rgba(5,22,58,.7);border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;cursor:pointer}
+
+/* carousels */
+.caro{display:flex;gap:22px;overflow-x:auto;padding:32px 40px 40px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.caro::-webkit-scrollbar{height:8px}.caro::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:4px}
+.slide{flex:0 0 300px;scroll-snap-align:center}
+.slide img{width:100%;border-radius:16px;box-shadow:0 20px 44px rgba(0,0,0,.4);display:block}
+.slide .lab{margin-top:12px;display:flex;justify-content:space-between;font-size:14px}
+.slide .lab b{color:#fff}.slide .lab span{font-family:'Space Mono';color:var(--gold);font-size:12px}
+.hint{text-align:center;font-family:'Space Mono';font-size:12px;color:var(--mut);letter-spacing:.16em}
+
+/* calendar */
+.cal{margin-top:40px;background:var(--paper);border-radius:20px;padding:30px}
+.calhead{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px}
+.calhead span{font-family:'Space Mono';font-size:12px;color:#7a6a48;text-align:center;letter-spacing:.1em}
+.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.cell{aspect-ratio:1/1.02;border-radius:10px;background:#fff;border:1px solid #e3d8bf;padding:8px;position:relative;display:flex;flex-direction:column;gap:4px;overflow:hidden}
+.cell .dnum{font-family:'Space Mono';font-size:11px;color:#a99a76}
+.pill{font-size:10.5px;font-weight:700;color:#fff;border-radius:5px;padding:3px 6px;line-height:1.2;letter-spacing:.01em}
+.p-li{background:var(--navy)}.p-ig{background:var(--gold-600)}.p-x{background:var(--blue)}.p-bl{background:var(--red)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:18px;font-size:13px;color:#41527a}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+
+/* content samples */
+.samples{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px}
+.post{background:#fff;color:var(--ink);border-radius:18px;padding:26px;box-shadow:0 16px 40px rgba(0,0,0,.14)}
+.post .top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.post .av{width:46px;height:46px;border-radius:50%;background:#dfe3ea url('assets/avatar.png') center/cover no-repeat;background-size:cover}
+.post .who b{display:block;font-size:15px}.post .who span{font-size:12.5px;color:var(--mut)}
+.post .chan{margin-left:auto;font-family:'Space Mono';font-size:11px;padding:5px 10px;border-radius:6px;color:#fff}
+.post .body{font-size:15px;white-space:pre-wrap;line-height:1.6}
+.post .tags{margin-top:12px;color:var(--blue);font-size:13.5px;font-weight:600}
+.post .stats{margin-top:16px;display:flex;gap:20px;font-size:12.5px;color:var(--mut);border-top:1px solid #eee;padding-top:12px}
+
+/* website + chatbot */
+.webrow{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center;margin-top:44px}
+.mock{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1)}
+.mock .bar{height:38px;background:#eef1f6;display:flex;align-items:center;gap:7px;padding:0 14px}
+.mock .bar i{width:11px;height:11px;border-radius:50%;background:#cdd3de}
+.mock .bar .url{margin-left:12px;font-family:'Space Mono';font-size:11px;color:#8a93a6;background:#fff;border-radius:6px;padding:4px 12px}
+.mock .site{background:linear-gradient(160deg,#08245e,#04122f);padding:34px;min-height:280px;position:relative;color:#fff}
+.mock .site h4{font-family:'Fraunces';font-size:30px;font-weight:600}
+.mock .site p{color:#b9c6e0;font-size:14px;margin-top:8px;max-width:32ch}
+.mock .site .btnrow{margin-top:18px;display:flex;gap:10px}
+.mock .site .b1{background:var(--gold);color:var(--navy-900);font-weight:800;font-size:13px;padding:9px 16px;border-radius:8px}
+.mock .site .b2{border:1px solid rgba(255,255,255,.4);color:#fff;font-size:13px;padding:9px 16px;border-radius:8px}
+.chatw{position:absolute;right:20px;bottom:20px;width:230px;background:#fff;border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.3);overflow:hidden;color:var(--ink)}
+.chatw .ch{background:var(--gold);color:var(--navy-900);font-weight:800;font-size:12px;padding:10px 14px}
+.chatw .msg{padding:10px 14px;font-size:12px}
+.chatw .msg .u{background:#eef1f6;border-radius:10px;padding:8px 10px;margin-bottom:8px}
+.chatw .msg .a{background:var(--navy);color:#fff;border-radius:10px;padding:8px 10px}
+
+/* packages */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.plan{background:linear-gradient(165deg,var(--navy-800),var(--navy-900));border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:30px}
+.plan.feat{border-color:var(--gold);box-shadow:0 24px 60px rgba(252,180,75,.14)}
+.plan .pn{font-family:'Space Mono';letter-spacing:.16em;font-size:12px;color:var(--gold)}
+.plan .amt{font-family:'Fraunces';font-size:40px;font-weight:600;margin:12px 0 2px}
+.plan .amt small{font-size:15px;color:var(--mut);font-family:'Archivo'}
+.plan ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:11px}
+.plan li{font-size:14.5px;color:#c9d4e8;padding-left:24px;position:relative}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:800}
+.plan .badge{display:inline-block;background:var(--gold);color:var(--navy-900);font-weight:800;font-size:11px;letter-spacing:.08em;padding:4px 10px;border-radius:100px;margin-bottom:10px}
+.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+.dcard{background:linear-gradient(165deg,var(--navy-800),var(--navy-900));border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:24px;transition:transform .2s,border-color .2s}
+.dcard:hover{transform:translateY(-4px);border-color:rgba(252,180,75,.4)}
+.dcard .di{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:12px;background:rgba(252,180,75,.14);color:var(--gold);font-weight:800;font-size:19px;margin-bottom:14px;font-family:'Space Mono',monospace}
+.dcard b{display:block;font-size:19px;margin-bottom:6px}
+.dcard p{font-size:14px;color:#9fb0d0;line-height:1.5}
+
+/* cta / footer */
+.final{padding:110px 0;text-align:center;background:radial-gradient(60% 80% at 50% 0%,#0c3072,var(--navy-900))}
+.final h2{font-size:62px;font-weight:500;line-height:1.02;letter-spacing:-.02em}
+.final h2 em{font-style:italic;color:var(--gold)}
+.final p{color:#c9d4e8;font-size:19px;margin:20px auto 0;max-width:46ch}
+.final .cta{display:inline-flex;margin-top:34px;background:var(--gold);color:var(--navy-900);font-weight:800;font-size:18px;padding:18px 34px;border-radius:100px;text-decoration:none}
+footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.08);color:var(--mut);font-size:14px;text-align:center;font-family:'Space Mono'}
+
+@media(max-width:900px){
+  .hero .wrap,.fly,.reelbig,.voice-grid,.samples,.webrow,.plans{grid-template-columns:1fr}
+  .dgrid{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:52px}h2.big{font-size:38px}.final h2{font-size:40px}
+  .wrap{padding:0 22px}.calgrid,.calhead{gap:5px}.pill{font-size:8.5px}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap row">
+  <div class="brand">
+    <svg viewBox="0 0 40 40"><circle cx="13" cy="14" r="8" fill="#fcb44b"/><circle cx="26" cy="14" r="8" fill="#005792"/><circle cx="19.5" cy="27" r="8" fill="#e13a44"/></svg>
+    POSIMIND <span class="by">Growth Engine</span>
+  </div>
+  <a class="navcta" href="#deliver">What we create</a>
+</div></nav>
+
+<!-- HERO -->
+<header class="hero"><div class="wrap">
+  <div class="reveal">
+    <div class="eyebrow">A proposal for Trupti Nanal</div>
+    <h1>One video becomes <em>a month</em> of Posimind.</h1>
+    <p class="lede">You record once. We turn it into reels, carousels, LinkedIn, X, and blogs - in your voice, on your brand, every week.</p>
+    <div class="meta">
+      <div><b>1</b> shoot / month</div>
+      <div><b>20+</b> posts out</div>
+      <div><b>0</b> hours editing</div>
+    </div>
+  </div>
+  <div class="phone reveal d2">
+    <span class="tag">HER REEL</span>
+    <video id="heroVid" src="assets/reel.mp4" poster="assets/reel_poster.jpg" muted loop playsinline autoplay></video>
+    <div class="sound" onclick="toggleSound()"><span id="sicon">🔇</span></div>
+  </div>
+</div></header>
+
+<!-- ENGINE / FLYWHEEL -->
+<section class="band paper"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">The engine</div>
+  <h2 class="big">Shoot once. Publish all month.</h2>
+  <p class="sub">A single 30-45 minute video is the only thing we ask of you. Everything below is produced from it - the transcript becomes the idea bank, your face carries the reels, and your AI voice fills the gaps between shoots.</p></div>
+  <div class="fly reveal d2">
+    <div class="stage" id="flyStage">
+      <svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M50 50 L41 8"/><path d="M50 50 L92 26"/><path d="M50 50 L90 74"/>
+        <path d="M50 50 L44 92"/><path d="M50 50 L8 74"/><path d="M50 50 L8 26"/>
+      </svg>
+      <div class="node core">1 Video</div>
+      <div class="node n1"><span class="dot"></span>Reels</div>
+      <div class="node n2"><span class="dot"></span>LinkedIn</div>
+      <div class="node n3"><span class="dot"></span>Carousels</div>
+      <div class="node n4"><span class="dot"></span>X / Twitter</div>
+      <div class="node n5"><span class="dot"></span>Blog + SEO</div>
+      <div class="node n6"><span class="dot"></span>AI voice</div>
+    </div>
+    <ul class="flylist">
+      <li><span class="k">01</span><div><b>Transcript → idea bank.</b> <span>We pull 15-20 distinct topics from one shoot.</span></div></li>
+      <li><span class="k">02</span><div><b>Each idea, five ways.</b> <span>A reel, a LinkedIn post, a carousel, an X thread, a blog.</span></div></li>
+      <li><span class="k">03</span><div><b>Your voice never stops.</b> <span>The AI twin narrates filler reels on the weeks you cannot shoot.</span></div></li>
+      <li><span class="k">04</span><div><b>You approve on WhatsApp.</b> <span>30 minutes a week. We schedule and post the rest.</span></div></li>
+    </ul>
+  </div>
+</div></section>
+
+<!-- VOICE TWIN -->
+<section class="band"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">Your AI voice twin</div>
+  <h2 class="big">Built from 26 seconds of your audio.</h2>
+  <p class="sub">Press play. This is a working clone of your voice, generated locally and privately. It narrates reels and voice-overs in English and Hindi so your feed stays active even in a busy month.</p></div>
+  <div class="voice-grid">
+    <div class="vcard reveal d1">
+      <div class="lang">ENGLISH</div>
+      <div class="play" onclick="playVoice('en')">
+        <div class="pbtn" id="pb_en">▶</div>
+        <div class="wave" id="wv_en">__WAVE__</div>
+      </div>
+      <div class="cap">"Hello, I am Trupti Nanal from Posimind Consulting..."</div>
+      <audio id="au_en" src="assets/voice_en.mp3" preload="auto"></audio>
+    </div>
+    <div class="vcard reveal d2">
+      <div class="lang">HINDI</div>
+      <div class="play" onclick="playVoice('hi')">
+        <div class="pbtn" id="pb_hi">▶</div>
+        <div class="wave" id="wv_hi">__WAVE__</div>
+      </div>
+      <div class="cap">"नमस्कार, मैं तृप्ति नानल, पोसिमाइंड कंसल्टिंग से..."</div>
+      <audio id="au_hi" src="assets/voice_hi.mp3" preload="auto"></audio>
+    </div>
+  </div>
+</div></section>
+
+<!-- REEL -->
+<section class="band paper"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">Sample reel</div>
+  <h2 class="big">We already made one - from your old interview.</h2>
+  <p class="sub">No new footage. We took a talk you gave years ago, found your strongest 40 seconds, and cut it into a branded reel. This is what lands every week.</p></div>
+  <div class="reelbig">
+    <div class="frame reveal d1">
+      <video id="reel2" src="assets/reel.mp4" poster="assets/reel_poster.jpg" loop playsinline muted></video>
+      <div class="rc" onclick="toggleReel2()"><span id="r2icon" style="color:#fff">▶</span></div>
+    </div>
+    <div class="reveal d2">
+      <ul class="flylist" style="border:0">
+        <li><span class="k">◆</span><div><b>Your real voice and face.</b> <span style="color:#41527a">Authenticity nobody can fake.</span></div></li>
+        <li><span class="k">◆</span><div><b>Branded end to end.</b> <span style="color:#41527a">Navy, gold, your tagline, your handle.</span></div></li>
+        <li><span class="k">◆</span><div><b>Made in one evening.</b> <span style="color:#41527a">Imagine four fresh ones every month.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- CAROUSELS -->
+<section class="band"><div class="wrap reveal">
+  <div class="eyebrow">Carousel systems</div>
+  <h2 class="big">Five signature series. One brand.</h2>
+  <p class="sub">Each is a recurring show your audience learns to recognise - all in your navy and gold. Swipe through the covers.</p>
+</div>
+  <div class="caro reveal d1">
+    <div class="slide"><img src="assets/car_founders.png" alt=""><div class="lab"><b>Founder's Desk</b><span>SERIES 01</span></div></div>
+    <div class="slide"><img src="assets/car_economy.png" alt=""><div class="lab"><b>The People Economy</b><span>SERIES 02</span></div></div>
+    <div class="slide"><img src="assets/car_hiresmart.png" alt=""><div class="lab"><b>Hire Smart</b><span>SERIES 03</span></div></div>
+    <div class="slide"><img src="assets/car_compass.png" alt=""><div class="lab"><b>Career Compass</b><span>SERIES 04</span></div></div>
+    <div class="slide"><img src="assets/car_behind.png" alt=""><div class="lab"><b>Behind the Search</b><span>SERIES 05</span></div></div>
+    <div class="slide"><img src="assets/car_dispatch.png" alt=""><div class="lab"><b>The Dispatch</b><span>BOLD STYLE</span></div></div>
+  </div>
+  <div class="hint">← SCROLL / SWIPE →</div>
+</section>
+
+<!-- CALENDAR -->
+<section class="band paper"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">A real month</div>
+  <h2 class="big">Here is your first 30 days.</h2>
+  <p class="sub">A live content calendar built from one shoot - reels, carousels, LinkedIn, X, and two SEO blogs, spread across the month.</p></div>
+  <div class="cal reveal d1">
+    <div class="calhead"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
+    <div class="calgrid" id="calgrid"></div>
+    <div class="legend">
+      <span><i style="background:var(--navy)"></i>LinkedIn</span>
+      <span><i style="background:var(--gold-600)"></i>Instagram</span>
+      <span><i style="background:var(--blue)"></i>X / Twitter</span>
+      <span><i style="background:var(--red)"></i>Blog</span>
+    </div>
+  </div>
+</div></section>
+
+<!-- CONTENT SAMPLES -->
+<section class="band"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">Ready-to-post drafts</div>
+  <h2 class="big">Written in your voice.</h2>
+  <p class="sub">Not lorem ipsum. Real posts drafted from your own themes on hiring, culture, and why good people leave.</p></div>
+  <div class="samples" id="samples">
+    <div class="post reveal d1">
+      <div class="top"><div class="av"></div><div class="who"><b>Trupti Nanal</b><span>Founder, Posimind Consulting</span></div><div class="chan" style="background:#0a66c2">LinkedIn</div></div>
+      <div class="body">Good people rarely quit for money. They quit because they stopped feeling like they mattered.
+
+Every exit interview tells a version of the same story. The person says it is the salary, because that is the safe thing to say on the way out. Listen a little longer and the real reasons come out. I did not feel seen. I stopped growing. My manager and I never really connected.
+
+People do not leave companies. They leave the space between themselves and their boss.</div>
+      <div class="tags">#Retention #Leadership #PeopleFirst</div>
+      <div class="stats"><span>♥ 214</span><span>💬 37</span><span>↗ 22</span></div>
+    </div>
+    <div class="post reveal d2">
+      <div class="top"><div class="av"></div><div class="who"><b>Trupti Nanal</b><span>@posimindconsulting</span></div><div class="chan" style="background:#111">X</div></div>
+      <div class="body">9 of 10 senior hires that fail did not fail on skill. They failed on fit.
+
+The resume gets them in. Attitude and belonging decide if they stay.
+
+Hire the fit, train the gaps.</div>
+      <div class="tags" style="color:#111">#ExecutiveSearch</div>
+      <div class="stats"><span>♥ 158</span><span>💬 19</span><span>↗ 44</span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- WEBSITE + CHATBOT -->
+<section class="band paper"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">Beyond social</div>
+  <h2 class="big">A website that answers for you.</h2>
+  <p class="sub">Your current site is a brochure from 2023. We rebuild it modern, and add an AI assistant that talks to candidates and companies day and night, qualifies them, and books the call.</p></div>
+  <div class="webrow">
+    <div class="mock reveal d1">
+      <div class="bar"><i></i><i></i><i></i><span class="url">posimind.in</span></div>
+      <div class="site">
+        <h4>We place the leaders who last.</h4>
+        <p>Executive search for CXO and senior roles across India.</p>
+        <div class="btnrow"><span class="b1">Find talent</span><span class="b2">For candidates</span></div>
+        <div class="chatw">
+          <div class="ch">Posimind Assistant</div>
+          <div class="msg">
+            <div class="u">Do you place finance CFOs?</div>
+            <div class="a">Yes - we specialise in CXO search. Shall I book a 15-min intro call?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <ul class="flylist">
+        <li><span class="k">◆</span><div><b>Modern, fast, mobile.</b> <span style="color:#41527a">Case studies, lead capture, your brand.</span></div></li>
+        <li><span class="k">◆</span><div><b>An AI assistant on duty 24/7.</b> <span style="color:#41527a">Trained on your services and process.</span></div></li>
+        <li><span class="k">◆</span><div><b>Turns visitors into calls.</b> <span style="color:#41527a">Qualifies and books, so nothing leaks.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- DELIVERABLES -->
+<section class="band" id="deliver"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">Everything we create for you</div>
+  <h2 class="big">One shoot. A whole content engine.</h2>
+  <p class="sub">Here is everything that comes out of your monthly video, all produced in your brand and ready to post.</p></div>
+  <div class="dgrid">
+    <div class="dcard reveal d1"><span class="di">▶</span><b>Reels</b><p>Weekly short videos in your voice, plus AI-voice fillers between shoots.</p></div>
+    <div class="dcard reveal d1"><span class="di">▤</span><b>Carousels</b><p>Five signature branded series your audience learns to recognise.</p></div>
+    <div class="dcard reveal d2"><span class="di">in</span><b>LinkedIn</b><p>Posts, carousels and articles for your primary channel.</p></div>
+    <div class="dcard reveal d2"><span class="di">✕</span><b>Instagram &amp; X</b><p>Reels, stories and threads repurposed from the same ideas.</p></div>
+    <div class="dcard reveal d3"><span class="di">✎</span><b>SEO blogs</b><p>Articles that pull inbound traffic to your website.</p></div>
+    <div class="dcard reveal d3"><span class="di">♪</span><b>AI voice twin</b><p>Your own voice, English and Hindi, on demand.</p></div>
+    <div class="dcard reveal d4"><span class="di">▦</span><b>Content calendar</b><p>A full month planned, scheduled and posted for you.</p></div>
+    <div class="dcard reveal d4"><span class="di">◎</span><b>Website + AI chatbot</b><p>A modern site with a 24/7 assistant that answers and books calls.</p></div>
+  </div>
+</div></section>
+
+<!-- FINAL -->
+<section class="final"><div class="wrap reveal">
+  <h2>Your authority is real.<br>Let's make it <em>visible.</em></h2>
+  <p>You have spent 25 years becoming the person leaders call. This is how the next 25 years of clients find you first.</p>
+  <a class="cta" href="#">Start with a pilot month</a>
+</div></section>
+
+<footer><div class="wrap">Prepared by Jarvis Daily for Posimind Consulting · Shruti · shruti@jarvisdaily.com</div></footer>
+
+<script>
+// waveform bars
+document.querySelectorAll('.wave').forEach(w=>{
+  if(w.textContent.trim()==='__WAVE__'||w.innerHTML.includes('__WAVE__')){w.innerHTML='';for(let i=0;i<34;i++)w.appendChild(document.createElement('i'));}
+});
+// reveal on scroll
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');
+  if(e.target.id==='flyStage'){/*nodes handled below*/}}})},{threshold:.18});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// flywheel nodes stagger
+const fly=document.querySelector('.fly');
+const fio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+  fly.classList.add('in');
+  const nodes=[...document.querySelectorAll('.node')];
+  nodes.forEach((n,i)=>setTimeout(()=>n.classList.add('in'), i*140));
+  fio.disconnect();
+}})},{threshold:.3});
+if(fly)fio.observe(fly);
+// hero sound
+function toggleSound(){const v=document.getElementById('heroVid');v.muted=!v.muted;document.getElementById('sicon').textContent=v.muted?'🔇':'🔊';if(!v.muted)v.play();}
+// reel2
+function toggleReel2(){const v=document.getElementById('reel2');const i=document.getElementById('r2icon');if(v.paused){v.muted=false;v.play();i.textContent='❚❚';}else{v.pause();i.textContent='▶';}}
+// voice
+let curAudio=null,curLang=null;
+function playVoice(l){
+  const a=document.getElementById('au_'+l),pb=document.getElementById('pb_'+l),wv=document.getElementById('wv_'+l);
+  if(curAudio&&curLang!==l){curAudio.pause();curAudio.currentTime=0;document.getElementById('pb_'+curLang).textContent='▶';document.getElementById('wv_'+curLang).classList.remove('playing');}
+  if(a.paused){a.play();pb.textContent='❚❚';wv.classList.add('playing');curAudio=a;curLang=l;
+    a.onended=()=>{pb.textContent='▶';wv.classList.remove('playing');};}
+  else{a.pause();pb.textContent='▶';wv.classList.remove('playing');}
+}
+// calendar
+const CAL={
+ 1:[['Post','li']],2:[['Reel','ig']],3:[['Thread','x']],4:[['Carousel','li']],6:[['Story','ig']],
+ 8:[['Post','li']],9:[['Reel','ig']],10:[['Post','x']],11:[['Carousel','li']],12:[['Blog','bl']],13:[['Post','x']],
+ 15:[['Post','li']],16:[['Carousel','ig']],17:[['Post','x']],18:[['Post','li']],20:[['Reel','ig']],
+ 22:[['Post','li']],23:[['Post','x']],24:[['Blog','bl']],25:[['Post','li']],26:[['Carousel','ig']],
+ 28:[['Post','li']],29:[['Reel','ig']],30:[['Post','li']]
+};
+const g=document.getElementById('calgrid');
+for(let d=1;d<=30;d++){const c=document.createElement('div');c.className='cell';
+  c.innerHTML='<span class="dnum">'+d+'</span>';
+  (CAL[d]||[]).forEach(([label,k])=>{const p=document.createElement('div');p.className='pill p-'+k;p.textContent=label;c.appendChild(p);});
+  g.appendChild(c);}
+</script>
+</body>
+</html>
