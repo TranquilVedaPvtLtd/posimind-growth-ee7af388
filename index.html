@@ -172,6 +172,34 @@ h2.big{font-size:54px;font-weight:500;line-height:1.02;letter-spacing:-.015em;ma
 .dcard .di{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:12px;background:rgba(252,180,75,.14);color:var(--gold);font-weight:800;font-size:19px;margin-bottom:14px;font-family:'Space Mono',monospace}
 .dcard b{display:block;font-size:19px;margin-bottom:6px}
 .dcard p{font-size:14px;color:#9fb0d0;line-height:1.5}
+/* agent OS */
+.osflow{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:26px;margin-top:44px}
+.ofcol{display:flex;flex-direction:column;gap:10px}
+.ofcol span{background:#fff;border:1px solid #e3d8bf;border-radius:10px;padding:12px 16px;font-weight:600;font-size:14px;color:var(--ink)}
+.ofcol.out span{border-color:rgba(252,180,75,.5);background:linear-gradient(90deg,#fff,#fdf6e8)}
+.ofcore{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#0e357d,var(--navy-900));color:#fff;display:grid;place-items:center;text-align:center;font-family:'Fraunces';font-weight:600;font-size:20px;line-height:1.05;box-shadow:0 0 0 8px rgba(252,180,75,.12),0 20px 50px rgba(0,32,112,.35);justify-self:center;position:relative}
+.ofcore::after{content:"MEMORY + KNOWLEDGE";position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:'Space Mono';font-size:11px;letter-spacing:.16em;color:var(--gold-600)}
+.osfound{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:66px}
+.osf{background:linear-gradient(165deg,var(--navy-800),var(--navy-900));border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:30px;color:#fff}
+.osf .oi{width:52px;height:52px;border-radius:14px;background:rgba(252,180,75,.15);color:var(--gold);display:grid;place-items:center;font-size:23px;margin-bottom:16px;font-family:'Space Mono'}
+.osf h3{font-family:'Fraunces',serif;font-size:25px;font-weight:600;margin-bottom:10px}
+.osf p{font-size:14.5px;color:#c9d4e8;line-height:1.55}
+.osagents{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.oschip{background:#fff;border:1px solid #e3d8bf;border-radius:100px;padding:11px 20px;font-weight:700;font-size:14.5px;color:var(--ink);display:flex;align-items:center;gap:10px}
+.oschip .d{width:9px;height:9px;border-radius:50%;background:var(--gold)}
+.osout{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 44px;margin-top:40px}
+.osoc{display:flex;gap:14px;align-items:flex-start}
+.osoc .ck{color:var(--gold-600);font-weight:900;font-size:19px;line-height:1.3}
+.osoc b{font-size:17px;color:var(--ink)} .osoc span{color:#41527a;font-size:14px;display:block;margin-top:2px}
+.osnote{margin-top:40px;padding:22px 26px;background:var(--navy);color:#fff;border-radius:16px;font-size:15px;line-height:1.6}
+.osnote b{color:var(--gold)}
+.osgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.osac{background:#fff;border:1px solid #e3d8bf;border-radius:14px;padding:18px}
+.osac b{display:block;font-size:15px;color:var(--navy);margin-bottom:5px}
+.osac span{font-size:13px;color:#5a6b8c;line-height:1.45}
+.osintg{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.osintg span{font-family:'Space Mono',monospace;font-size:13px;color:#41527a;background:#fff;border:1px solid #e3d8bf;border-radius:8px;padding:8px 14px}
+.oslead{font-weight:700;font-size:16px;color:var(--ink);margin-top:52px}
 
 /* cta / footer */
 .final{padding:110px 0;text-align:center;background:radial-gradient(60% 80% at 50% 0%,#0c3072,var(--navy-900))}
@@ -184,6 +212,8 @@ footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.08);color:var(--mut
 @media(max-width:900px){
   .hero .wrap,.fly,.reelbig,.voice-grid,.samples,.webrow,.plans{grid-template-columns:1fr}
   .dgrid{grid-template-columns:1fr 1fr}
+  .osflow,.osfound,.osgrid,.osout{grid-template-columns:1fr}
+  .osflow .ofcore{margin:12px 0 40px}
   .hero h1{font-size:52px}h2.big{font-size:38px}.final h2{font-size:40px}
   .wrap{padding:0 22px}.calgrid,.calhead{gap:5px}.pill{font-size:8.5px}
 }
@@ -401,6 +431,77 @@ Hire the fit, train the gaps.</div>
     <div class="dcard reveal d3"><span class="di">♪</span><b>AI voice twin</b><p>Your own voice, English and Hindi, on demand.</p></div>
     <div class="dcard reveal d4"><span class="di">▦</span><b>Content calendar</b><p>A full month planned, scheduled and posted for you.</p></div>
     <div class="dcard reveal d4"><span class="di">◎</span><b>Website + AI chatbot</b><p>A modern site with a 24/7 assistant that answers and books calls.</p></div>
+  </div>
+</div></section>
+
+<!-- AGENT OS -->
+<section class="band paper" id="os"><div class="wrap">
+  <div class="reveal"><div class="eyebrow">The bigger picture</div>
+  <h2 class="big">An operating system for how Posimind runs.</h2>
+  <p class="sub">Content is what the world sees. Underneath, we can install an AI operating system for the search business itself. You already describe Posimind as technology-driven, with AI pre-assessments and strong relationships. This is how that becomes real, and how it compounds - your 25 years of "people who know the people" turned into software that never forgets.</p></div>
+
+  <div class="osflow reveal d2">
+    <div class="ofcol">
+      <span>Every call &amp; meeting</span>
+      <span>Email &amp; WhatsApp</span>
+      <span>Interview &amp; assessment notes</span>
+      <span>Every placement, across offices</span>
+    </div>
+    <div class="ofcore">MEMORY<br>ENGINE</div>
+    <div class="ofcol out">
+      <span>Ranked shortlists, with rationale</span>
+      <span>Instant candidate &amp; client briefs</span>
+      <span>Warm outreach &amp; follow-ups</span>
+      <span>A network that re-surfaces itself</span>
+    </div>
+  </div>
+
+  <div class="osfound">
+    <div class="osf reveal d1">
+      <div class="oi">◉</div>
+      <h3>Memory Engine</h3>
+      <p>Every candidate, client, conversation, interview and placement across Pune, Mumbai and Bangalore, connected in one graph. A leader you assessed three years ago resurfaces the moment a matching mandate opens. Your relationship capital becomes an institutional asset that does not walk out the door when a person leaves.</p>
+    </div>
+    <div class="osf reveal d2">
+      <div class="oi">▤</div>
+      <h3>Knowledge Base</h3>
+      <p>Your proprietary intelligence, structured and instantly askable: who is placed where, what roles pay across your seven industries, which candidates fit which cultures, who succeeded and who did not, and why. Ask your entire network a question and get an answer in seconds.</p>
+    </div>
+    <div class="osf reveal d3">
+      <div class="oi">◇</div>
+      <h3>Custom Agent Team</h3>
+      <p>A fractional AI staff working on top of your memory and knowledge, mapped to how a search actually runs, from the day a mandate opens to the day the leader is placed and beyond. Trained on your process, your voice and your standards.</p>
+    </div>
+  </div>
+
+  <div class="oslead reveal">Your AI staff, mapped to the search</div>
+  <div class="osgrid">
+    <div class="osac reveal d1"><b>Sourcing Agent</b><span>Surfaces candidates for every mandate, including dormant ones already in your network.</span></div>
+    <div class="osac reveal d1"><b>Fit &amp; Assessment Agent</b><span>Your AI pre-assessment made real: scores candidates on strategy, culture and diversity fit.</span></div>
+    <div class="osac reveal d2"><b>Research &amp; Brief Agent</b><span>A full brief on any company or candidate before every call.</span></div>
+    <div class="osac reveal d2"><b>Outreach Agent</b><span>Warm, personalised outreach to passive senior talent, in your voice.</span></div>
+    <div class="osac reveal d3"><b>Coordinator Agent</b><span>Schedules interviews, chases documents and keeps every mandate moving.</span></div>
+    <div class="osac reveal d3"><b>Network Agent</b><span>Keeps your talent network warm and re-engages leaders you have not spoken to in a while.</span></div>
+    <div class="osac reveal d4"><b>Report Agent</b><span>Client shortlists with rationale, candidate reports and placement paperwork.</span></div>
+    <div class="osac reveal d4"><b>HR Ops Agent</b><span>Automates the HRMS workflows you already run for clients.</span></div>
+  </div>
+
+  <div class="osintg reveal">
+    <span>Runs where you already work:</span>
+    <span>WhatsApp</span><span>Email</span><span>LinkedIn</span><span>Calendar</span><span>Your HRMS / ATS</span><span>The website assistant</span>
+  </div>
+
+  <div class="osout">
+    <div class="osoc reveal d1"><span class="ck">✓</span><div><b>Fill senior mandates faster</b><span>Sourcing and assessment stop being manual.</span></div></div>
+    <div class="osoc reveal d1"><span class="ck">✓</span><div><b>Never lose a relationship</b><span>A candidate met once is remembered forever.</span></div></div>
+    <div class="osoc reveal d2"><span class="ck">✓</span><div><b>Knowledge survives people</b><span>When a recruiter leaves, the network stays.</span></div></div>
+    <div class="osoc reveal d2"><span class="ck">✓</span><div><b>Every recruiter carries 3x</b><span>The grunt work runs itself, around the clock.</span></div></div>
+    <div class="osoc reveal d3"><span class="ck">✓</span><div><b>One brain across offices</b><span>Pune, Mumbai and Bangalore on the same memory.</span></div></div>
+    <div class="osoc reveal d3"><span class="ck">✓</span><div><b>Diversity, by default</b><span>Balanced slates enforced systematically, as you promise.</span></div></div>
+  </div>
+
+  <div class="osnote reveal">
+    <b>Phase two.</b> The content engine goes live first and builds your presence. Once it is running, we install the operating system that runs the business underneath, one workflow at a time, so nothing disrupts a live mandate. You already promise technology-driven, AI-powered search. This is how Posimind delivers it, and turns a 25-year network into a moat no competitor can copy.
   </div>
 </div></section>
 
