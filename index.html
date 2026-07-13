@@ -200,6 +200,15 @@ h2.big{font-size:54px;font-weight:500;line-height:1.02;letter-spacing:-.015em;ma
 .osintg{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
 .osintg span{font-family:'Space Mono',monospace;font-size:13px;color:#41527a;background:#fff;border:1px solid #e3d8bf;border-radius:8px;padding:8px 14px}
 .oslead{font-weight:700;font-size:16px;color:var(--ink);margin-top:52px}
+.brainviz{margin-top:44px;background:linear-gradient(160deg,#07204f,#040f2a);border:1px solid rgba(252,180,75,.22);border-radius:22px;padding:26px 26px 18px;overflow:hidden;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.3)}
+.bvhead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;position:relative;z-index:2}
+.bvtitle{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:#fff}
+.bvsub{font-size:14px;color:#9fb0d0;margin-top:6px;max-width:46ch}
+.bvlegend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:#c9d4e8}
+.bvlegend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:-1px}
+#brainCanvas{display:block;width:100%;height:520px;cursor:crosshair;position:relative;z-index:1}
+.bvfoot{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--gold-600);opacity:.8;margin-top:2px}
+@media(max-width:900px){#brainCanvas{height:400px}.bvtitle{font-size:22px}}
 
 /* cta / footer */
 .final{padding:110px 0;text-align:center;background:radial-gradient(60% 80% at 50% 0%,#0c3072,var(--navy-900))}
@@ -440,20 +449,21 @@ Hire the fit, train the gaps.</div>
   <h2 class="big">An operating system for how Posimind runs.</h2>
   <p class="sub">Content is what the world sees. Underneath, we can install an AI operating system for the search business itself. You already describe Posimind as technology-driven, with AI pre-assessments and strong relationships. This is how that becomes real, and how it compounds - your 25 years of "people who know the people" turned into software that never forgets.</p></div>
 
-  <div class="osflow reveal d2">
-    <div class="ofcol">
-      <span>Every call &amp; meeting</span>
-      <span>Email &amp; WhatsApp</span>
-      <span>Interview &amp; assessment notes</span>
-      <span>Every placement, across offices</span>
+  <div class="brainviz reveal d2">
+    <div class="bvhead">
+      <div>
+        <div class="bvtitle">Her business, as a living second brain</div>
+        <div class="bvsub">Every person, company, mandate and conversation, connected. This is the memory your agents think with. Hover any node.</div>
+      </div>
+      <div class="bvlegend">
+        <span><i style="background:#fcb44b"></i>Candidates</span>
+        <span><i style="background:#4a90c4"></i>Companies</span>
+        <span><i style="background:#e6555f"></i>Mandates</span>
+        <span><i style="background:#8aa0c8"></i>Industries</span>
+      </div>
     </div>
-    <div class="ofcore">MEMORY<br>ENGINE</div>
-    <div class="ofcol out">
-      <span>Ranked shortlists, with rationale</span>
-      <span>Instant candidate &amp; client briefs</span>
-      <span>Warm outreach &amp; follow-ups</span>
-      <span>A network that re-surfaces itself</span>
-    </div>
+    <canvas id="brainCanvas"></canvas>
+    <div class="bvfoot"><span>Every interaction flows in.</span><span>Every answer flows out.</span></div>
   </div>
 
   <div class="osfound">
@@ -558,6 +568,64 @@ for(let d=1;d<=30;d++){const c=document.createElement('div');c.className='cell';
   c.innerHTML='<span class="dnum">'+d+'</span>';
   (CAL[d]||[]).forEach(([label,k])=>{const p=document.createElement('div');p.className='pill p-'+k;p.textContent=label;c.appendChild(p);});
   g.appendChild(c);}
+
+// ===== KNOWLEDGE GRAPH — business second brain =====
+(function(){
+  const cv=document.getElementById('brainCanvas'); if(!cv) return;
+  const ctx=cv.getContext('2d');
+  const COL={brain:'#fcb44b',cand:'#fcb44b',co:'#4a90c4',role:'#e6555f',ind:'#8aa0c8',client:'#eaeefb',dot:'#5f77a8'};
+  let W=0,H=0,dpr=1;
+  const N=[],E=[];
+  function add(type,label){const r=type==='brain'?30:type==='ind'?9:type==='role'?8:type==='co'?7:type==='cand'?5.5:3.2;
+    N.push({type,label:label||'',r,x:0,y:0,vx:0,vy:0,fixed:type==='brain',ph:Math.random()*6.28}); return N.length-1;}
+  const brain=add('brain','POSIMIND');
+  const indL=['IT & Telecom','Financial','Energy','Design & Eng','Infrastructure'];
+  const inds=indL.map(l=>{const i=add('ind',l);E.push([brain,i]);return i;});
+  const coL=['Apex','Nimbus','Vertex','Meridian','Corsair','Halcyon'];
+  const cos=coL.map((l,k)=>{const c=add('co',l);E.push([inds[k%inds.length],c]);return c;});
+  const roleL=['CEO','CFO','VP Sales','CHRO','VP Eng','COO','Board'];
+  const roles=roleL.map((l,k)=>{const r=add('role',l);E.push([cos[k%cos.length],r]);if(k%2===0)E.push([brain,r]);return r;});
+  const candNames=['Sr. Leader','Director','C-Suite','GM'];
+  const cands=[];for(let k=0;k<15;k++){const c=add('cand',k%4===0?candNames[(k/4|0)%4]:'');cands.push(c);E.push([roles[k%roles.length],c]);if(k%3===0)E.push([c,brain]);if(k%5===0)E.push([c,roles[(k+2)%roles.length]]);}
+  for(let k=0;k<3;k++){const c=add('client','');E.push([c,roles[k%roles.length]]);E.push([c,brain]);}
+  for(let k=0;k<11;k++){const d=add('dot','');E.push([d,cands[k%cands.length]]);}
+  const flowEdges=E.filter(e=>e[0]===brain||e[1]===brain).slice(0,10).map(e=>({a:e[0],b:e[1],t:Math.random()}));
+
+  function resize(){dpr=Math.min(window.devicePixelRatio||1,2);const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  function seed(){const cx=W/2,cy=H/2;N.forEach(n=>{const a=Math.random()*6.28,rr=Math.random()*Math.min(W,H)*0.34;n.x=cx+Math.cos(a)*rr;n.y=cy+Math.sin(a)*rr;});N[brain].x=cx;N[brain].y=cy;}
+  function tick(k){const cx=W/2,cy=H/2;const REP=k*2600,SPR=0.012,REST=64,CEN=0.0016,DAMP=0.86;
+    for(let i=0;i<N.length;i++){for(let j=i+1;j<N.length;j++){let dx=N[i].x-N[j].x,dy=N[i].y-N[j].y,d2=dx*dx+dy*dy+0.1;if(d2<52000){let f=REP/d2,d=Math.sqrt(d2);let fx=dx/d*f,fy=dy/d*f;N[i].vx+=fx;N[i].vy+=fy;N[j].vx-=fx;N[j].vy-=fy;}}}
+    E.forEach(([a,b])=>{let dx=N[b].x-N[a].x,dy=N[b].y-N[a].y,d=Math.sqrt(dx*dx+dy*dy)+.01,diff=(d-REST)/d*SPR;let fx=dx*diff,fy=dy*diff;N[a].vx+=fx;N[a].vy+=fy;N[b].vx-=fx;N[b].vy-=fy;});
+    N.forEach(n=>{n.vx+=(cx-n.x)*CEN;n.vy+=(cy-n.y)*CEN;if(n.fixed){n.x=cx;n.y=cy;n.vx=n.vy=0;return;}n.vx*=DAMP;n.vy*=DAMP;n.x+=n.vx;n.y+=n.vy;n.x=Math.max(n.r+6,Math.min(W-n.r-6,n.x));n.y=Math.max(n.r+40,Math.min(H-n.r-16,n.y));});}
+  let hover=-1;
+  cv.addEventListener('mousemove',ev=>{const r=cv.getBoundingClientRect(),mx=ev.clientX-r.left,my=ev.clientY-r.top;let best=-1,bd=1e9;N.forEach((n,i)=>{const d=(n.x-mx)**2+(n.y-my)**2;if(d<bd&&d<(n.r+9)**2){bd=d;best=i;}});hover=best;});
+  cv.addEventListener('mouseleave',()=>hover=-1);
+  const nbr=N.map(()=>new Set());E.forEach(([a,b])=>{nbr[a].add(b);nbr[b].add(a);});
+  let t=0;
+  function draw(){t+=0.016;ctx.clearRect(0,0,W,H);
+    N.forEach(n=>{if(!n.fixed){n.vx+=Math.cos(t*0.6+n.ph)*0.010;n.vy+=Math.sin(t*0.6+n.ph)*0.010;}});
+    tick(0.6);
+    const hi=hover>=0;
+    E.forEach(([a,b])=>{const on=hi&&(a===hover||b===hover);ctx.beginPath();ctx.moveTo(N[a].x,N[a].y);ctx.lineTo(N[b].x,N[b].y);
+      ctx.strokeStyle=on?'rgba(252,180,75,.75)':(hi?'rgba(160,180,220,.06)':'rgba(150,175,220,.16)');ctx.lineWidth=on?1.8:1;ctx.stroke();});
+    flowEdges.forEach(f=>{f.t+=0.006;if(f.t>1)f.t-=1;const A=N[f.a],B=N[f.b];const px=A.x+(B.x-A.x)*f.t,py=A.y+(B.y-A.y)*f.t;ctx.beginPath();ctx.arc(px,py,2.2,0,6.28);ctx.fillStyle='rgba(255,217,138,.9)';ctx.fill();});
+    N.forEach((n,i)=>{const on=!hi||i===hover||nbr[hover].has(i);const c=COL[n.type];
+      if(n.type==='brain'){const pr=n.r+Math.sin(t*1.4)*2.5;const g2=ctx.createRadialGradient(n.x,n.y,2,n.x,n.y,pr*2.4);g2.addColorStop(0,'rgba(252,180,75,.55)');g2.addColorStop(1,'rgba(252,180,75,0)');ctx.fillStyle=g2;ctx.beginPath();ctx.arc(n.x,n.y,pr*2.4,0,6.28);ctx.fill();
+        ctx.beginPath();ctx.arc(n.x,n.y,pr,0,6.28);ctx.fillStyle='#0a2a63';ctx.fill();ctx.lineWidth=2.5;ctx.strokeStyle=c;ctx.stroke();}
+      else{ctx.globalAlpha=on?1:0.28;const gl=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*3);gl.addColorStop(0,c+'66');gl.addColorStop(1,c+'00');ctx.fillStyle=gl;ctx.beginPath();ctx.arc(n.x,n.y,n.r*3,0,6.28);ctx.fill();
+        ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,6.28);ctx.fillStyle=c;ctx.fill();ctx.globalAlpha=1;}
+    });
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    N.forEach((n,i)=>{const showL=n.label&&(!hi||i===hover||nbr[hover].has(i)||n.type==='brain');if(!showL)return;
+      ctx.font=(n.type==='brain'?'700 15px':'600 12px')+" 'Archivo',sans-serif";const ty=n.type==='brain'?n.y:n.y-n.r-9;
+      ctx.fillStyle=n.type==='brain'?'#fff':'rgba(230,238,251,.92)';ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=4;ctx.fillText(n.label,n.x,ty);ctx.shadowBlur=0;});
+    requestAnimationFrame(draw);
+  }
+  function boot(){resize();seed();for(let s=0;s<260;s++)tick(0.6);draw();}
+  let io2=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){boot();io2.disconnect();}})},{threshold:.15});
+  io2.observe(cv);
+  window.addEventListener('resize',()=>{resize();});
+})();
 </script>
 </body>
 </html>
